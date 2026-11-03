@@ -6,7 +6,9 @@ import (
 	"encoding/binary"
 	"fmt"
 	"net"
+	"net/netip"
 	"os"
+	"sync/atomic"
 
 	"golang.org/x/sys/unix"
 )
@@ -55,13 +57,16 @@ func request(kind uint16, flags uint16, payload []byte) error {
 	return nil
 }
 
+var pairNumber atomic.Uint32
+
 type Pair struct {
 	Left, Right *net.Interface
 	FD          int
 }
 
 func New() (*Pair, error) {
-	left, right := fmt.Sprintf("ew%da", os.Getpid()), fmt.Sprintf("ew%db", os.Getpid())
+	id := pairNumber.Add(1)
+	left, right := fmt.Sprintf("ew%x%xa", os.Getpid(), id), fmt.Sprintf("ew%x%xb", os.Getpid(), id)
 	peer := append(info(0), attr(unix.IFLA_IFNAME, append([]byte(right), 0))...)
 	data := attr(1, peer) // VETH_INFO_PEER
 	linkInfo := append(attr(1, []byte("veth\x00")), attr(2|unix.NLA_F_NESTED, data)...)
@@ -105,8 +110,8 @@ func (p *Pair) Close() {
 	if p.FD >= 0 {
 		unix.Close(p.FD)
 	}
-	if p.Left != nil {
-		request(unix.RTM_DELLINK, 0, info(p.Left.Index))
+	if p.Right != nil {
+		request(unix.RTM_DELLINK, 0, info(p.Right.Index))
 	}
 }
 func (p *Pair) Packet(port uint16) []byte {
@@ -134,4 +139,74 @@ func (p *Pair) Packet(port uint16) []byte {
 }
 func (p *Pair) Send(packet []byte) error {
 	return unix.Sendto(p.FD, packet, 0, &unix.SockaddrLinklayer{Ifindex: p.Left.Index})
+}
+
+// Move places an interface in an already-created network namespace.
+func Move(index, namespaceFD int) error {
+	b := make([]byte, 4)
+	binary.NativeEndian.PutUint32(b, uint32(namespaceFD))
+	return request(unix.RTM_NEWLINK, 0, append(info(index), attr(unix.IFLA_NET_NS_FD, b)...))
+}
+func Up(name string) error {
+	nic, e := net.InterfaceByName(name)
+	if e != nil {
+		return e
+	}
+	b := info(nic.Index)
+	binary.NativeEndian.PutUint32(b[8:], unix.IFF_UP)
+	binary.NativeEndian.PutUint32(b[12:], unix.IFF_UP)
+	return request(unix.RTM_NEWLINK, 0, b)
+}
+func Address(index int, address string) error {
+	p, e := netip.ParsePrefix(address)
+	if e != nil {
+		return e
+	}
+	b := make([]byte, 8)
+	b[1] = byte(p.Bits())
+	b[2] = unix.IFA_F_NODAD
+	binary.NativeEndian.PutUint32(b[4:], uint32(index))
+	if p.Addr().Is4() {
+		b[0] = unix.AF_INET
+		a := p.Addr().As4()
+		b = append(b, attr(unix.IFA_ADDRESS, a[:])...)
+		b = append(b, attr(unix.IFA_LOCAL, a[:])...)
+	} else {
+		b[0] = unix.AF_INET6
+		a := p.Addr().As16()
+		b = append(b, attr(unix.IFA_ADDRESS, a[:])...)
+	}
+	return request(unix.RTM_NEWADDR, unix.NLM_F_CREATE|unix.NLM_F_EXCL, b)
+}
+func Route(destination, gateway string, index int) error {
+	p, e := netip.ParsePrefix(destination)
+	if e != nil {
+		return e
+	}
+	g, e := netip.ParseAddr(gateway)
+	if e != nil {
+		return e
+	}
+	b := make([]byte, 12)
+	b[1] = byte(p.Bits())
+	b[4] = unix.RT_TABLE_MAIN
+	b[5] = unix.RTPROT_STATIC
+	b[7] = unix.RTN_UNICAST
+	if p.Addr().Is4() {
+		b[0] = unix.AF_INET
+		a := p.Masked().Addr().As4()
+		v := g.As4()
+		b = append(b, attr(unix.RTA_DST, a[:])...)
+		b = append(b, attr(unix.RTA_GATEWAY, v[:])...)
+	} else {
+		b[0] = unix.AF_INET6
+		a := p.Masked().Addr().As16()
+		v := g.As16()
+		b = append(b, attr(unix.RTA_DST, a[:])...)
+		b = append(b, attr(unix.RTA_GATEWAY, v[:])...)
+	}
+	dev := make([]byte, 4)
+	binary.NativeEndian.PutUint32(dev, uint32(index))
+	b = append(b, attr(unix.RTA_OIF, dev)...)
+	return request(unix.RTM_NEWROUTE, unix.NLM_F_CREATE|unix.NLM_F_EXCL, b)
 }

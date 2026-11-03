@@ -2,19 +2,45 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
+    inputs:
+      benchmark:
+        description: Run the direct UFW benchmark in isolated namespaces
+        type: boolean
+        default: false
 permissions:
   contents: read
 jobs:
   test:
     runs-on: ubuntu-24.04
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
           cache: true
-      - name: Install LLVM
-        run: sudo apt-get update && sudo apt-get install -y clang llvm
-      - run: make all test build/kernel.test
-      - name: Kernel verifier and packet tests
-        run: sudo env PATH="$PATH" make test-kernel
+      - name: Install disposable runner dependencies
+        run: sudo apt-get update && sudo apt-get install -y clang llvm ufw
+      - name: Build, race tests, vet, archive safety tests
+        run: make all test build/full.test
+      - name: Verify service syntax
+        run: |
+          sudo make install
+          systemd-analyze verify /usr/lib/systemd/system/ebpfw.service 2>&1 | tee service-check.log
+      - name: Kernel verifier and live IPv4/IPv6 tests
+        run: |
+          sudo tests/run-isolated.sh env EBPFW_FULL_TEST=1 EBPFW_UFW_TEST=1 \
+            EBPFW_OBJECT="$PWD/build/stateful.o" EBPFW_BINARY="$PWD/build/ebpfw" \
+            "$PWD/build/full.test" -test.v -test.timeout=10m | tee kernel-tests.log
+      - name: Direct UFW benchmark (manual opt-in)
+        if: github.event_name == 'workflow_dispatch' && inputs.benchmark
+        run: |
+          sudo tests/run-isolated.sh env EBPFW_FULL_TEST=1 EBPFW_UFW_TEST=1 EBPFW_UFW_BENCH=1 \
+            EBPFW_OBJECT="$PWD/build/stateful.o" EBPFW_BINARY="$PWD/build/ebpfw" \
+            "$PWD/build/full.test" -test.v -test.run='^TestDirectUFWBenchmark$' -test.timeout=20m | tee ufw-benchmark.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-logs
+          path: '*.log'

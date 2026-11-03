@@ -1,0 +1,225 @@
+=== RUN   TestBenchmarkWorker
+    benchmark_linux_test.go:211: benchmark subprocess
+--- SKIP: TestBenchmarkWorker (0.00s)
+=== RUN   TestDirectUFWBenchmark
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":1,"repetition":1,"operations":5000,"ns_per_operation":686.05,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":1,"repetition":1,"operations":5000,"ns_per_operation":569.9668,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":1,"repetition":2,"operations":5000,"ns_per_operation":577.3084,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":1,"repetition":2,"operations":5000,"ns_per_operation":686.1334,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":1,"repetition":3,"operations":5000,"ns_per_operation":701.275,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":1,"repetition":3,"operations":5000,"ns_per_operation":585.9416,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":1,"repetition":4,"operations":5000,"ns_per_operation":572.6834,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":1,"repetition":4,"operations":5000,"ns_per_operation":705.3418,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":1,"repetition":5,"operations":5000,"ns_per_operation":701.8082,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":1,"repetition":5,"operations":5000,"ns_per_operation":572.075,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":16,"repetition":1,"operations":5000,"ns_per_operation":783.5166,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":16,"repetition":1,"operations":5000,"ns_per_operation":613.8834,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":16,"repetition":2,"operations":5000,"ns_per_operation":613.5584,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":16,"repetition":2,"operations":5000,"ns_per_operation":768.45,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":16,"repetition":3,"operations":5000,"ns_per_operation":770.3666,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":16,"repetition":3,"operations":5000,"ns_per_operation":606.7666,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":16,"repetition":4,"operations":5000,"ns_per_operation":621.8916,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":16,"repetition":4,"operations":5000,"ns_per_operation":777.775,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":16,"repetition":5,"operations":5000,"ns_per_operation":778.2834,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":16,"repetition":5,"operations":5000,"ns_per_operation":618.3168,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":64,"repetition":1,"operations":5000,"ns_per_operation":1005.1666,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":64,"repetition":1,"operations":5000,"ns_per_operation":732.5,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":64,"repetition":2,"operations":5000,"ns_per_operation":746.1166,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":64,"repetition":2,"operations":5000,"ns_per_operation":984.1334,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":64,"repetition":3,"operations":5000,"ns_per_operation":999.7334,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":64,"repetition":3,"operations":5000,"ns_per_operation":739.0582,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":64,"repetition":4,"operations":5000,"ns_per_operation":753.1918,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":64,"repetition":4,"operations":5000,"ns_per_operation":1000.8832,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-drop","rules":64,"repetition":5,"operations":5000,"ns_per_operation":1024.225,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-drop","rules":64,"repetition":5,"operations":5000,"ns_per_operation":737.575,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":1,"repetition":1,"operations":1000,"ns_per_operation":37611.958,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":1,"repetition":1,"operations":1000,"ns_per_operation":41228.084,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":1,"repetition":2,"operations":1000,"ns_per_operation":39416.792,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":1,"repetition":2,"operations":1000,"ns_per_operation":32502.375,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":1,"repetition":3,"operations":1000,"ns_per_operation":36611.708,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":1,"repetition":3,"operations":1000,"ns_per_operation":36502.167,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":1,"repetition":4,"operations":1000,"ns_per_operation":36927.709,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":1,"repetition":4,"operations":1000,"ns_per_operation":36424.292,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":1,"repetition":5,"operations":1000,"ns_per_operation":36922.292,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":1,"repetition":5,"operations":1000,"ns_per_operation":36707.292,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":16,"repetition":1,"operations":1000,"ns_per_operation":36196.708,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":16,"repetition":1,"operations":1000,"ns_per_operation":36130.458,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":16,"repetition":2,"operations":1000,"ns_per_operation":36913.5,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":16,"repetition":2,"operations":1000,"ns_per_operation":37071.666,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":16,"repetition":3,"operations":1000,"ns_per_operation":36110.166,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":16,"repetition":3,"operations":1000,"ns_per_operation":37290.5,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":16,"repetition":4,"operations":1000,"ns_per_operation":36598.75,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":16,"repetition":4,"operations":1000,"ns_per_operation":36151.125,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":16,"repetition":5,"operations":1000,"ns_per_operation":37095.75,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":16,"repetition":5,"operations":1000,"ns_per_operation":37745.375,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":64,"repetition":1,"operations":1000,"ns_per_operation":36675.084,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":64,"repetition":1,"operations":1000,"ns_per_operation":36529.125,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":64,"repetition":2,"operations":1000,"ns_per_operation":37610.125,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":64,"repetition":2,"operations":1000,"ns_per_operation":36949.167,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":64,"repetition":3,"operations":1000,"ns_per_operation":36701.792,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":64,"repetition":3,"operations":1000,"ns_per_operation":36322.958,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":64,"repetition":4,"operations":1000,"ns_per_operation":36548.083,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":64,"repetition":4,"operations":1000,"ns_per_operation":36728,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"udp-established","rules":64,"repetition":5,"operations":1000,"ns_per_operation":36043.209,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"udp-established","rules":64,"repetition":5,"operations":1000,"ns_per_operation":37649.5,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":1,"repetition":1,"operations":1000,"ns_per_operation":37842.583,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":1,"repetition":1,"operations":1000,"ns_per_operation":38830.625,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":1,"repetition":2,"operations":1000,"ns_per_operation":38558.625,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":1,"repetition":2,"operations":1000,"ns_per_operation":38237.875,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":1,"repetition":3,"operations":1000,"ns_per_operation":37555.25,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":1,"repetition":3,"operations":1000,"ns_per_operation":45167.834,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":1,"repetition":4,"operations":1000,"ns_per_operation":44285.834,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":1,"repetition":4,"operations":1000,"ns_per_operation":45369.792,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":1,"repetition":5,"operations":1000,"ns_per_operation":45282.834,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":1,"repetition":5,"operations":1000,"ns_per_operation":41326.125,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":16,"repetition":1,"operations":1000,"ns_per_operation":37826.208,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":16,"repetition":1,"operations":1000,"ns_per_operation":41275.667,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":16,"repetition":2,"operations":1000,"ns_per_operation":41755.792,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":16,"repetition":2,"operations":1000,"ns_per_operation":41980.25,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":16,"repetition":3,"operations":1000,"ns_per_operation":40303.208,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":16,"repetition":3,"operations":1000,"ns_per_operation":38494.083,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":16,"repetition":4,"operations":1000,"ns_per_operation":37793.5,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":16,"repetition":4,"operations":1000,"ns_per_operation":38206.125,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":16,"repetition":5,"operations":1000,"ns_per_operation":38541.209,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":16,"repetition":5,"operations":1000,"ns_per_operation":41226.75,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":64,"repetition":1,"operations":1000,"ns_per_operation":37951.625,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":64,"repetition":1,"operations":1000,"ns_per_operation":38795.584,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":64,"repetition":2,"operations":1000,"ns_per_operation":37687.5,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":64,"repetition":2,"operations":1000,"ns_per_operation":38254.083,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":64,"repetition":3,"operations":1000,"ns_per_operation":38373.208,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":64,"repetition":3,"operations":1000,"ns_per_operation":37305.042,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":64,"repetition":4,"operations":1000,"ns_per_operation":38234.667,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":64,"repetition":4,"operations":1000,"ns_per_operation":38340.875,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-established","rules":64,"repetition":5,"operations":1000,"ns_per_operation":37811.041,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-established","rules":64,"repetition":5,"operations":1000,"ns_per_operation":37951.125,"verified_payload_messages":2000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":1,"repetition":1,"operations":50,"ns_per_operation":75515.82,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":1,"repetition":1,"operations":50,"ns_per_operation":71164.18,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":1,"repetition":2,"operations":50,"ns_per_operation":71260.84,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":1,"repetition":2,"operations":50,"ns_per_operation":71782.5,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":1,"repetition":3,"operations":50,"ns_per_operation":71973.34,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":1,"repetition":3,"operations":50,"ns_per_operation":82855.84,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":1,"repetition":4,"operations":50,"ns_per_operation":75303.34,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":1,"repetition":4,"operations":50,"ns_per_operation":69115,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":1,"repetition":5,"operations":50,"ns_per_operation":71323.34,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":1,"repetition":5,"operations":50,"ns_per_operation":72277.5,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":16,"repetition":1,"operations":50,"ns_per_operation":74673.34,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":16,"repetition":1,"operations":50,"ns_per_operation":70537.5,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":16,"repetition":2,"operations":50,"ns_per_operation":69390.84,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":16,"repetition":2,"operations":50,"ns_per_operation":72045,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":16,"repetition":3,"operations":50,"ns_per_operation":75466.68,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":16,"repetition":3,"operations":50,"ns_per_operation":68582.5,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":16,"repetition":4,"operations":50,"ns_per_operation":70562.5,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":16,"repetition":4,"operations":50,"ns_per_operation":73453.32,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":16,"repetition":5,"operations":50,"ns_per_operation":72333.34,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":16,"repetition":5,"operations":50,"ns_per_operation":71395,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":64,"repetition":1,"operations":50,"ns_per_operation":73057.5,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":64,"repetition":1,"operations":50,"ns_per_operation":74912.5,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":64,"repetition":2,"operations":50,"ns_per_operation":74104.16,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":64,"repetition":2,"operations":50,"ns_per_operation":71743.32,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":64,"repetition":3,"operations":50,"ns_per_operation":73782.5,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":64,"repetition":3,"operations":50,"ns_per_operation":69531.68,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":64,"repetition":4,"operations":50,"ns_per_operation":69509.18,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":64,"repetition":4,"operations":50,"ns_per_operation":79861.66,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"tcp-new","rules":64,"repetition":5,"operations":50,"ns_per_operation":79396.66,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"tcp-new","rules":64,"repetition":5,"operations":50,"ns_per_operation":75015,"verified_payload_messages":100,"completed_connections":50,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":1,"repetition":1,"operations":5000,"ns_per_operation":604.6918,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":1,"repetition":1,"operations":5000,"ns_per_operation":518.7,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":1,"repetition":2,"operations":5000,"ns_per_operation":517.775,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":1,"repetition":2,"operations":5000,"ns_per_operation":620.6082,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":1,"repetition":3,"operations":5000,"ns_per_operation":604.9416,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":1,"repetition":3,"operations":5000,"ns_per_operation":509.5,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":1,"repetition":4,"operations":5000,"ns_per_operation":514.0584,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":1,"repetition":4,"operations":5000,"ns_per_operation":600.3916,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":1,"repetition":5,"operations":5000,"ns_per_operation":601.875,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":1,"repetition":5,"operations":5000,"ns_per_operation":509.3418,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":16,"repetition":1,"operations":5000,"ns_per_operation":707.725,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":16,"repetition":1,"operations":5000,"ns_per_operation":519.8668,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":16,"repetition":2,"operations":5000,"ns_per_operation":551.4416,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":16,"repetition":2,"operations":5000,"ns_per_operation":680.45,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":16,"repetition":3,"operations":5000,"ns_per_operation":680.5166,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":16,"repetition":3,"operations":5000,"ns_per_operation":542.8416,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":16,"repetition":4,"operations":5000,"ns_per_operation":518.475,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":16,"repetition":4,"operations":5000,"ns_per_operation":674.6084,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":16,"repetition":5,"operations":5000,"ns_per_operation":671.4418,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":16,"repetition":5,"operations":5000,"ns_per_operation":516.8334,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":64,"repetition":1,"operations":5000,"ns_per_operation":926.525,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":64,"repetition":1,"operations":5000,"ns_per_operation":511.9416,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":64,"repetition":2,"operations":5000,"ns_per_operation":520.1666,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":64,"repetition":2,"operations":5000,"ns_per_operation":917.0166,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":64,"repetition":3,"operations":5000,"ns_per_operation":963.75,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":64,"repetition":3,"operations":5000,"ns_per_operation":519.9834,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":64,"repetition":4,"operations":5000,"ns_per_operation":516.2834,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":64,"repetition":4,"operations":5000,"ns_per_operation":921.1918,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ufw","workload":"early-source-drop","rules":64,"repetition":5,"operations":5000,"ns_per_operation":951.125,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+EBPFW_UFW_SAMPLE {"backend":"ebpf","workload":"early-source-drop","rules":64,"repetition":5,"operations":5000,"ns_per_operation":520.1582,"verified_packets":5000,"kernel":"6.12.114-0-virt","architecture":"arm64"}
+--- PASS: TestDirectUFWBenchmark (149.10s)
+=== RUN   TestFullTCP
+=== RUN   TestFullTCP/tcp4
+=== RUN   TestFullTCP/tcp6
+--- PASS: TestFullTCP (0.16s)
+    --- PASS: TestFullTCP/tcp4 (0.07s)
+    --- PASS: TestFullTCP/tcp6 (0.09s)
+=== RUN   TestFullOutboundAndUDP
+=== RUN   TestFullOutboundAndUDP/udp4
+=== RUN   TestFullOutboundAndUDP/udp6
+--- PASS: TestFullOutboundAndUDP (0.38s)
+    --- PASS: TestFullOutboundAndUDP/udp4 (0.19s)
+    --- PASS: TestFullOutboundAndUDP/udp6 (0.19s)
+=== RUN   TestFullIncomingSelectors
+--- PASS: TestFullIncomingSelectors (0.29s)
+=== RUN   TestFullRateLimit
+--- PASS: TestFullRateLimit (0.46s)
+=== RUN   TestFullRelatedICMP
+=== RUN   TestFullRelatedICMP/udp4
+=== RUN   TestFullRelatedICMP/udp6
+--- PASS: TestFullRelatedICMP (0.12s)
+    --- PASS: TestFullRelatedICMP/udp4 (0.07s)
+    --- PASS: TestFullRelatedICMP/udp6 (0.06s)
+=== RUN   TestFullManyRulesAndRejectionAtomicity
+--- PASS: TestFullManyRulesAndRejectionAtomicity (0.08s)
+=== RUN   TestFullFragmentsAndIPv6Extensions
+=== RUN   TestFullFragmentsAndIPv6Extensions/4
+=== RUN   TestFullFragmentsAndIPv6Extensions/6
+--- PASS: TestFullFragmentsAndIPv6Extensions (0.13s)
+    --- PASS: TestFullFragmentsAndIPv6Extensions/4 (0.06s)
+    --- PASS: TestFullFragmentsAndIPv6Extensions/6 (0.07s)
+=== RUN   TestFullEarlyBlocks
+--- PASS: TestFullEarlyBlocks (0.18s)
+=== RUN   TestFullRejectReplies
+=== RUN   TestFullRejectReplies/tcp4
+=== RUN   TestFullRejectReplies/tcp6
+--- PASS: TestFullRejectReplies (0.32s)
+    --- PASS: TestFullRejectReplies/tcp4 (0.16s)
+    --- PASS: TestFullRejectReplies/tcp6 (0.16s)
+=== RUN   TestFullRoutedPolicy
+--- PASS: TestFullRoutedPolicy (0.37s)
+=== RUN   TestFullNewTunnelAndLoopback
+--- PASS: TestFullNewTunnelAndLoopback (0.07s)
+=== RUN   TestFullAgentCrashAndReload
+--- PASS: TestFullAgentCrashAndReload (2.88s)
+=== RUN   TestFullConcurrentConnections
+--- PASS: TestFullConcurrentConnections (0.07s)
+=== RUN   TestFullBoundedStateExpiry
+--- PASS: TestFullBoundedStateExpiry (0.05s)
+=== RUN   TestFullForeignOwnerProtection
+--- PASS: TestFullForeignOwnerProtection (0.00s)
+=== RUN   TestFullTCPFastOpen
+--- PASS: TestFullTCPFastOpen (0.07s)
+=== RUN   TestPolicyABI
+--- PASS: TestPolicyABI (0.00s)
+=== RUN   TestStablePlan
+--- PASS: TestStablePlan (0.00s)
+=== RUN   TestFoundation
+--- PASS: TestFoundation (0.04s)
+=== RUN   TestUFWAvailable
+    ufw_linux_test.go:18: ufw 0.36.2
+        Copyright 2008-2023 Canonical Ltd.
+
+    ufw_linux_test.go:18: Status: inactive
+
+    ufw_linux_test.go:24: iptables v1.8.9 (nf_tables)
+
+--- PASS: TestUFWAvailable (0.03s)
+PASS
+EBPFW_FULL_VM_PASS
+[  155.206867] reboot: Power down

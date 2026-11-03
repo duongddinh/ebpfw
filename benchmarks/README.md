@@ -1,3 +1,5 @@
+> Historical v0.1 stateless benchmark. For the current stateful firewall and real UFW comparison, see [stateful-ufw.md](stateful-ufw.md).
+
 # Measured performance — 2026-11-03
 
 Generic XDP was faster at the median with larger sequential rulesets in this

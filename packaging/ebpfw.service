@@ -1,0 +1,33 @@
+[Unit]
+Description=ebpfw stateful eBPF firewall and event agent
+Documentation=https://github.com/duongddinh/ebpfw
+DefaultDependencies=no
+Wants=network-pre.target
+Before=network-pre.target
+After=local-fs.target sys-fs-bpf.mount
+RequiresMountsFor=/sys/fs/bpf
+ConditionPathExists=/etc/ebpfw/rules.json
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Service]
+Type=simple
+ExecStart=/usr/local/sbin/ebpfw --object /usr/local/lib/ebpfw/stateful.o run
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=10
+UMask=0077
+RuntimeDirectory=ebpfw
+RuntimeDirectoryMode=0700
+RuntimeDirectoryPreserve=yes
+LimitMEMLOCK=infinity
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+PrivateTmp=true
+ReadWritePaths=/run/ebpfw /sys/fs/bpf
+CapabilityBoundingSet=CAP_BPF CAP_NET_ADMIN CAP_NET_RAW CAP_SYS_RESOURCE
+# No ExecStop that detaches: pinned kernel enforcement survives agent shutdown.
+
+[Install]
+WantedBy=network-pre.target

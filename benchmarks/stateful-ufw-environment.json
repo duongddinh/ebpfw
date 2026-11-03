@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-03",
+  "host": {
+    "cpu": "Apple M5",
+    "cores": 10,
+    "memory_bytes": 17179869184,
+    "os": "macOS 26.6.2"
+  },
+  "vm": {
+    "qemu": "10.2.4",
+    "acceleration": "HVF",
+    "architecture": "arm64",
+    "vcpus": 2,
+    "memory_mib": 1536,
+    "external_nic": false,
+    "kernel": "6.12.114-0-virt"
+  },
+  "tools": {
+    "go": "1.26.6",
+    "clang": "21.1.8"
+  },
+  "ufw": "0.36.2-1",
+  "iptables": "1.8.9-2 (nf_tables)",
+  "bpf_sha256": "fa10db11f7d2d4612ba67af1aeea0d0d7dea71700b4b613b94ba8650ea496f85",
+  "raw_samples_sha256": "1152f380df780bb8c88d38e7c18ce53c6090654f72db8570e513f9f82c07c46f",
+  "debian_fixture_sha256": "db5c3fea1bf4e9ff874fe76dca918dd7c555b1a221e18210ce351938db44b59a",
+  "flake_lock_sha256": "00de82bed1eba1bbc57a515023be139cceb4bc314bc78622697ff31d1f5f87b5"
+}
