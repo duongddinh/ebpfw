@@ -19,9 +19,10 @@ import (
 
 	"encoding/binary"
 	"github.com/cilium/ebpf"
+	"github.com/cilium/ebpf/link"
 	"github.com/cilium/ebpf/ringbuf"
+	"github.com/cilium/ebpf/rlimit"
 	"github.com/duongddinh/ebpfw/internal/config"
-	"github.com/duongddinh/ebpfw/internal/testnet"
 	"golang.org/x/sys/unix"
 )
 
@@ -66,10 +67,10 @@ func (ns *testNamespace) do(fn func() error) error {
 	}()
 	return fn()
 }
-func requireVM(t *testing.T) {
+func requireIsolatedNetwork(t *testing.T) {
 	t.Helper()
 	if os.Getenv("EBPFW_FULL_TEST") != "1" {
-		t.Skip("privileged disposable VM test")
+		t.Skip("set EBPFW_FULL_TEST=1 for isolated kernel tests")
 	}
 	nics, e := net.Interfaces()
 	if e != nil {
@@ -81,30 +82,28 @@ func requireVM(t *testing.T) {
 		}
 	}
 }
-func fixture(t *testing.T) (*testNamespace, *testnet.Pair, *Manager) {
+func fixture(t *testing.T) (*testNamespace, *testPair, *Manager) {
 	t.Helper()
-	requireVM(t)
-	if e := testnet.Up("lo"); e != nil {
+	requireIsolatedNetwork(t)
+	if e := upTestInterface("lo"); e != nil {
 		t.Fatal(e)
 	}
 	peer := newNamespace(t)
-	pair, e := testnet.New()
+	pair, e := newTestPair()
 	if e != nil {
 		t.Fatal(e)
 	}
 	t.Cleanup(pair.Close)
-	unix.Close(pair.FD)
-	pair.FD = -1
-	if e = testnet.Move(pair.Left.Index, peer.fd); e != nil {
+	if e = moveTestInterface(pair.Left.Index, peer.fd); e != nil {
 		t.Fatal(e)
 	}
 	for _, a := range []string{"192.0.2.1/24", "2001:db8::1/64"} {
-		if e = testnet.Address(pair.Right.Index, a); e != nil {
+		if e = addTestAddress(pair.Right.Index, a); e != nil {
 			t.Fatal(e)
 		}
 	}
 	if e = peer.do(func() error {
-		if e := testnet.Up("lo"); e != nil {
+		if e := upTestInterface("lo"); e != nil {
 			return e
 		}
 		n, e := net.InterfaceByName(pair.Left.Name)
@@ -112,11 +111,11 @@ func fixture(t *testing.T) (*testNamespace, *testnet.Pair, *Manager) {
 			return e
 		}
 		for _, a := range []string{"192.0.2.2/24", "2001:db8::2/64"} {
-			if e = testnet.Address(n.Index, a); e != nil {
+			if e = addTestAddress(n.Index, a); e != nil {
 				return e
 			}
 		}
-		return testnet.Up(n.Name)
+		return upTestInterface(n.Name)
 	}); e != nil {
 		t.Fatal(e)
 	}
@@ -393,7 +392,7 @@ func TestFullRateLimit(t *testing.T) {
 		if e != nil {
 			return e
 		}
-		return testnet.Address(n.Index, "192.0.2.3/24")
+		return addTestAddress(n.Index, "192.0.2.3/24")
 	}); e != nil {
 		t.Fatal(e)
 	}
@@ -752,34 +751,32 @@ func TestFullRejectReplies(t *testing.T) {
 func TestFullRoutedPolicy(t *testing.T) {
 	first, a, m := fixture(t)
 	second := newNamespace(t)
-	b, e := testnet.New()
+	b, e := newTestPair()
 	if e != nil {
 		t.Fatal(e)
 	}
 	t.Cleanup(b.Close)
-	unix.Close(b.FD)
-	b.FD = -1
-	if e = testnet.Move(b.Left.Index, second.fd); e != nil {
+	if e = moveTestInterface(b.Left.Index, second.fd); e != nil {
 		t.Fatal(e)
 	}
-	if e = testnet.Address(b.Right.Index, "198.51.100.1/24"); e != nil {
+	if e = addTestAddress(b.Right.Index, "198.51.100.1/24"); e != nil {
 		t.Fatal(e)
 	}
 	if e = second.do(func() error {
-		if e := testnet.Up("lo"); e != nil {
+		if e := upTestInterface("lo"); e != nil {
 			return e
 		}
 		n, e := net.InterfaceByName(b.Left.Name)
 		if e != nil {
 			return e
 		}
-		if e = testnet.Address(n.Index, "198.51.100.2/24"); e != nil {
+		if e = addTestAddress(n.Index, "198.51.100.2/24"); e != nil {
 			return e
 		}
-		if e = testnet.Up(n.Name); e != nil {
+		if e = upTestInterface(n.Name); e != nil {
 			return e
 		}
-		return testnet.Route("192.0.2.0/24", "198.51.100.1", n.Index)
+		return addTestRoute("192.0.2.0/24", "198.51.100.1", n.Index)
 	}); e != nil {
 		t.Fatal(e)
 	}
@@ -788,7 +785,7 @@ func TestFullRoutedPolicy(t *testing.T) {
 		if e != nil {
 			return e
 		}
-		return testnet.Route("198.51.100.0/24", "192.0.2.1", n.Index)
+		return addTestRoute("198.51.100.0/24", "192.0.2.1", n.Index)
 	}); e != nil {
 		t.Fatal(e)
 	}
@@ -861,10 +858,10 @@ func TestFullNewTunnelAndLoopback(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	if e = testnet.Address(nic.Index, "203.0.113.1/24"); e != nil {
+	if e = addTestAddress(nic.Index, "203.0.113.1/24"); e != nil {
 		t.Fatal(e)
 	}
-	if e = testnet.Up(nic.Name); e != nil {
+	if e = upTestInterface(nic.Name); e != nil {
 		t.Fatal(e)
 	}
 	receiver, e := net.ListenUDP("udp4", &net.UDPAddr{IP: net.ParseIP("203.0.113.1")})
@@ -1081,7 +1078,7 @@ func TestFullBoundedStateExpiry(t *testing.T) {
 	}
 }
 func TestFullForeignOwnerProtection(t *testing.T) {
-	requireVM(t)
+	requireIsolatedNetwork(t)
 	root := filepath.Join("/sys/fs/bpf", fmt.Sprintf("foreign-test-%d", time.Now().UnixNano()))
 	if e := os.Mkdir(root, 0700); e != nil {
 		t.Fatal(e)
@@ -1178,4 +1175,38 @@ func TestFullTCPFastOpen(t *testing.T) {
 	if e != nil || s.Counters["fast_open_syns"] == 0 {
 		t.Fatal("test did not exercise data in SYN", e)
 	}
+}
+
+func testObject() string {
+	if p := os.Getenv("EBPFW_OBJECT"); p != "" {
+		return p
+	}
+	return "/stateful.o"
+}
+func TestFoundation(t *testing.T) {
+	if os.Getenv("EBPFW_FULL_TEST") != "1" {
+		t.Skip("set EBPFW_FULL_TEST=1 for isolated kernel tests")
+	}
+	requireIsolatedNetwork(t)
+	rlimit.RemoveMemlock()
+	s, e := ebpf.LoadCollectionSpec(testObject())
+	if e != nil {
+		t.Fatal(e)
+	}
+	c, e := ebpf.NewCollection(s)
+	if e != nil {
+		var v *ebpf.VerifierError
+		if errors.As(e, &v) {
+			for _, line := range v.Log {
+				t.Log(line)
+			}
+		}
+		t.Fatalf("%+v", e)
+	}
+	defer c.Close()
+	l, e := link.AttachNetfilter(link.NetfilterOptions{Program: c.Programs["ebpfw_full"], ProtocolFamily: link.NetfilterProtoIPv4, Hook: link.NetfilterInetLocalIn, Priority: 10, NetfilterFlags: 1})
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer l.Close()
 }

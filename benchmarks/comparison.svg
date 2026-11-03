@@ -134,7 +134,7 @@ L 0 3
       </g>
      </g>
      <g id="text_1">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="190.08" y="254.826594" transform="rotate(-0 190.08 254.826594)">0</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="190.08" y="254.826594" transform="rotate(-0 190.08 254.826594)">0</text>
      </g>
     </g>
     <g id="xtick_2">
@@ -144,7 +144,7 @@ L 0 3
       </g>
      </g>
      <g id="text_2">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="265.733731" y="254.826594" transform="rotate(-0 265.733731 254.826594)">25</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="265.733731" y="254.826594" transform="rotate(-0 265.733731 254.826594)">25</text>
      </g>
     </g>
     <g id="xtick_3">
@@ -154,7 +154,7 @@ L 0 3
       </g>
      </g>
      <g id="text_3">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="341.387463" y="254.826594" transform="rotate(-0 341.387463 254.826594)">50</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="341.387463" y="254.826594" transform="rotate(-0 341.387463 254.826594)">50</text>
      </g>
     </g>
     <g id="xtick_4">
@@ -164,7 +164,7 @@ L 0 3
       </g>
      </g>
      <g id="text_4">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="417.041194" y="254.826594" transform="rotate(-0 417.041194 254.826594)">75</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="417.041194" y="254.826594" transform="rotate(-0 417.041194 254.826594)">75</text>
      </g>
     </g>
     <g id="xtick_5">
@@ -174,7 +174,7 @@ L 0 3
       </g>
      </g>
      <g id="text_5">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="492.694925" y="254.826594" transform="rotate(-0 492.694925 254.826594)">100</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="492.694925" y="254.826594" transform="rotate(-0 492.694925 254.826594)">100</text>
      </g>
     </g>
     <g id="xtick_6">
@@ -184,42 +184,42 @@ L 0 3
       </g>
      </g>
      <g id="text_6">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="568.348657" y="254.826594" transform="rotate(-0 568.348657 254.826594)">125</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="568.348657" y="254.826594" transform="rotate(-0 568.348657 254.826594)">125</text>
      </g>
     </g>
     <g id="text_7">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: middle" x="392.832" y="273.536906" transform="rotate(-0 392.832 273.536906)">Time per operation (% of UFW median; lower is better)</text>
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: middle" x="392.832" y="273.536906" transform="rotate(-0 392.832 273.536906)">Time per operation (% of UFW median; lower is better)</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
     <g id="ytick_1">
      <g id="line2d_8"/>
      <g id="text_8">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="186.58" y="103.685189" transform="rotate(-0 186.58 103.685189)">XDP source blocking</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="186.58" y="103.685189" transform="rotate(-0 186.58 103.685189)">Source-IP blocking</text>
      </g>
     </g>
     <g id="ytick_2">
      <g id="line2d_9"/>
      <g id="text_9">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="186.58" y="134.822243" transform="rotate(-0 186.58 134.822243)">Normal UDP blocking</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="186.58" y="134.822243" transform="rotate(-0 186.58 134.822243)">UDP port blocking</text>
      </g>
     </g>
     <g id="ytick_3">
      <g id="line2d_10"/>
      <g id="text_10">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="186.58" y="165.959297" transform="rotate(-0 186.58 165.959297)">Established TCP</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="186.58" y="165.959297" transform="rotate(-0 186.58 165.959297)">TCP echo (established)</text>
      </g>
     </g>
     <g id="ytick_4">
      <g id="line2d_11"/>
      <g id="text_11">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="186.58" y="197.096351" transform="rotate(-0 186.58 197.096351)">Established UDP</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="186.58" y="197.096351" transform="rotate(-0 186.58 197.096351)">UDP echo (established)</text>
      </g>
     </g>
     <g id="ytick_5">
      <g id="line2d_12"/>
      <g id="text_12">
-      <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="186.58" y="228.233405" transform="rotate(-0 186.58 228.233405)">TCP connect + echo + close</text>
+      <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="186.58" y="228.233405" transform="rotate(-0 186.58 228.233405)">TCP connect + echo + close</text>
      </g>
     </g>
    </g>
@@ -384,22 +384,22 @@ L 595.584 241.488
 " style="fill: none; stroke: #777777; stroke-width: 0.6; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_13">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="605.7216" y="102.74933" transform="rotate(-0 605.7216 102.74933)">43.9%</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="605.7216" y="102.74933" transform="rotate(-0 605.7216 102.74933)">43.9%</text>
    </g>
    <g id="text_14">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="605.7216" y="133.886384" transform="rotate(-0 605.7216 133.886384)">26.2%</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="605.7216" y="133.886384" transform="rotate(-0 605.7216 133.886384)">26.2%</text>
    </g>
    <g id="text_15">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="605.7216" y="165.023437" transform="rotate(-0 605.7216 165.023437)">0.8%</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="605.7216" y="165.023437" transform="rotate(-0 605.7216 165.023437)">0.8%</text>
    </g>
    <g id="text_16">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="605.7216" y="196.160491" transform="rotate(-0 605.7216 196.160491)">0.4%</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="605.7216" y="196.160491" transform="rotate(-0 605.7216 196.160491)">0.4%</text>
    </g>
    <g id="text_17">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="605.7216" y="227.297545" transform="rotate(-0 605.7216 227.297545)">−0.4%</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="605.7216" y="227.297545" transform="rotate(-0 605.7216 227.297545)">−0.4%</text>
    </g>
    <g id="text_18">
-    <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: end" x="605.7216" y="65.930681" transform="rotate(-0 605.7216 65.930681)">Time saved</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: end" x="605.7216" y="65.930681" transform="rotate(-0 605.7216 65.930681)">Time saved</text>
    </g>
    <g id="legend_1">
     <g id="patch_14">
@@ -411,7 +411,7 @@ z
 " style="fill: #eeeeee; stroke: #555555; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
     <g id="text_19">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start" x="219.78" y="71.688274" transform="rotate(-0 219.78 71.688274)">UFW</text>
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="219.78" y="71.688274" transform="rotate(-0 219.78 71.688274)">UFW</text>
     </g>
     <g id="patch_15">
      <path d="M 256.642031 71.688274
@@ -422,18 +422,21 @@ z
 " style="fill: #444444; stroke: #555555; stroke-width: 0.5; stroke-linejoin: miter"/>
     </g>
     <g id="text_20">
-     <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start" x="278.242031" y="71.688274" transform="rotate(-0 278.242031 71.688274)">eBPF</text>
+     <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="278.242031" y="71.688274" transform="rotate(-0 278.242031 71.688274)">ebpfw</text>
     </g>
    </g>
   </g>
   <g id="text_21">
-   <text style="font-weight: 500; font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="25.344" y="18.576" transform="rotate(-0 25.344 18.576)">UFW and eBPF: time per operation</text>
+   <text style="font-weight: 500; font-size: 12px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="25.344" y="18.576" transform="rotate(-0 25.344 18.576)">UFW and ebpfw: time per operation</text>
   </g>
   <g id="text_22">
-   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #555555" x="25.344" y="32.508" transform="rotate(-0 25.344 32.508)">64 rules · ARM64 virtual machine</text>
+   <text style="font-size: 9px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #555555" x="25.344" y="32.508" transform="rotate(-0 25.344 32.508)">64 rules · ARM64 virtual machine</text>
   </g>
   <g id="text_23">
-   <text style="font-size: 8px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #555555" x="25.344" y="298.764" transform="rotate(-0 25.344 298.764)">Bars show medians; whiskers show the range of five trials. Positive time savings favor eBPF.</text>
+   <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #555555" x="25.344" y="286.38" transform="rotate(-0 25.344 286.38)">Source-IP test: ebpfw uses generic XDP. UFW uses iptables-nft in every test.</text>
+  </g>
+  <g id="text_24">
+   <text style="font-size: 8px; font-family: 'DejaVu Sans', 'Arial', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start; fill: #555555" x="25.344" y="298.764" transform="rotate(-0 25.344 298.764)">Bars: medians. Whiskers: range of five trials. Positive time savings favor ebpfw.</text>
   </g>
  </g>
  <defs>

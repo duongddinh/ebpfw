@@ -7,10 +7,10 @@ from pathlib import Path
 import statistics
 
 WORKLOADS = [
-    ('early-source-drop', 'XDP source blocking'),
-    ('udp-drop', 'Normal UDP blocking'),
-    ('tcp-established', 'Established TCP'),
-    ('udp-established', 'Established UDP'),
+    ('early-source-drop', 'Source IP blocking'),
+    ('udp-drop', 'UDP port blocking'),
+    ('tcp-established', 'TCP echo (established)'),
+    ('udp-established', 'UDP echo (established)'),
     ('tcp-new', 'TCP connect + echo + close'),
 ]
 
@@ -45,7 +45,7 @@ def draw(groups, output):
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
 
-    plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 9,
+    plt.rcParams.update({'font.family': ['DejaVu Sans', 'Arial', 'sans-serif'], 'font.size': 9,
                          'svg.fonttype': 'none', 'svg.hashsalt': 'ebpfw'})
     fig, ax = plt.subplots(figsize=(8.8, 4.3))
     colors = {'ufw': '#eeeeee', 'ebpf': '#444444'}
@@ -56,7 +56,7 @@ def draw(groups, output):
             value = statistics.median(trials)
             ax.barh(i + offset, value, height=0.27, color=colors[backend],
                     edgecolor='#555555', linewidth=0.5,
-                    label=('UFW' if backend == 'ufw' else 'eBPF') if i == 0 else None,
+                    label=('UFW' if backend == 'ufw' else 'ebpfw') if i == 0 else None,
                     xerr=[[value - min(trials)], [max(trials) - value]],
                     error_kw={'ecolor': '#333333', 'elinewidth': 0.7, 'capsize': 2})
         saving = 100 * (1 - statistics.median(groups[workload, 64, 'ebpf']) / baseline)
@@ -78,9 +78,11 @@ def draw(groups, output):
               handlelength=1.6, columnspacing=1.8)
     ax.text(1.025, 1.10, 'Time saved', transform=ax.transAxes,
             ha='right', va='bottom', fontsize=9)
-    fig.text(0.04, 0.94, 'UFW and eBPF: time per operation', fontsize=12, fontweight='medium')
+    fig.text(0.04, 0.94, 'UFW and ebpfw: time per operation', fontsize=12, fontweight='medium')
     fig.text(0.04, 0.895, '64 rules · ARM64 virtual machine', fontsize=9, color='#555555')
-    fig.text(0.04, 0.035, 'Bars show medians; whiskers show the range of five trials. Positive time savings favor eBPF.',
+    fig.text(0.04, 0.075, 'Source IP test: ebpfw uses generic XDP. UFW uses iptables-nft in every test.',
+             fontsize=8, color='#555555')
+    fig.text(0.04, 0.035, 'Bars: medians. Whiskers: range of five trials. Positive time savings favor ebpfw.',
              fontsize=8, color='#555555')
     fig.subplots_adjust(left=0.30, right=0.94, top=0.73, bottom=0.22)
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -96,7 +98,7 @@ def main():
     parser.add_argument('--output', type=Path, default=Path(__file__).with_name('comparison.svg'))
     args = parser.parse_args()
     groups = read_samples(args.samples)
-    print('| Workload | UFW µs/op | eBPF µs/op | Time saved |')
+    print('| Workload | UFW µs/op | ebpfw µs/op | Time saved |')
     print('|---|---:|---:|---:|')
     for workload, label in WORKLOADS:
         ufw = statistics.median(groups[workload, 64, 'ufw'])

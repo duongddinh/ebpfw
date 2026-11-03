@@ -29,7 +29,7 @@ jobs:
           uname -srmo
           "$CLANG" --version
           go version
-      - name: Build, race tests, vet, archive safety tests
+      - name: Build, race tests, and vet
         run: make all test build/full.test
       - name: Verify service syntax
         run: |
@@ -37,15 +37,11 @@ jobs:
           systemd-analyze verify /usr/lib/systemd/system/ebpfw.service 2>&1 | tee service-check.log
       - name: Kernel verifier and live IPv4/IPv6 tests
         run: |
-          sudo tests/run-isolated.sh env EBPFW_FULL_TEST=1 EBPFW_UFW_TEST=1 \
-            EBPFW_OBJECT="$PWD/build/stateful.o" EBPFW_BINARY="$PWD/build/ebpfw" \
-            "$PWD/build/full.test" -test.v -test.timeout=10m | tee kernel-tests.log
+          sudo env PATH="$PATH" CLANG="$CLANG" EBPFW_UFW_TEST=1 make test-kernel | tee kernel-tests.log
       - name: Direct UFW benchmark (manual opt-in)
         if: github.event_name == 'workflow_dispatch' && inputs.benchmark
         run: |
-          sudo tests/run-isolated.sh env EBPFW_FULL_TEST=1 EBPFW_UFW_TEST=1 EBPFW_UFW_BENCH=1 \
-            EBPFW_OBJECT="$PWD/build/stateful.o" EBPFW_BINARY="$PWD/build/ebpfw" \
-            "$PWD/build/full.test" -test.v -test.run='^TestDirectUFWBenchmark$' -test.timeout=20m | tee ufw-benchmark.log
+          sudo env PATH="$PATH" CLANG="$CLANG" make benchmark | tee ufw-benchmark.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:

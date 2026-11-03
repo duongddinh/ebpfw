@@ -5,6 +5,8 @@ DESTDIR ?=
 BPF_ENDIAN ?= bpfel
 # The stateful datapath uses 32-bit atomics; older Clang defaults target v1.
 BPF_CPU ?= v3
+# Private network/mount namespaces protect the test host and its pinned BPF state.
+ISOLATE = unshare --net --mount sh -ec 'mount --make-rprivate /; mount -t bpf bpf /sys/fs/bpf; mount -t tmpfs -o mode=0755 tmpfs /run; exec "$$@"' sh
 
 .PHONY: all test test-kernel benchmark install clean
 all: build/ebpfw build/stateful.o
@@ -24,15 +26,13 @@ build/full.test: $(shell find internal -name '*.go') go.mod go.sum
 test:
 	$(GO) test -race ./...
 	$(GO) vet ./...
-	python3 -m unittest discover -s tests -p 'test_*.py'
 
-# Invoke inside a private network namespace on a disposable Linux test host.
-# Tests refuse namespaces containing existing interfaces other than loopback.
+# Run as root on a disposable Linux host; each command creates private namespaces.
 test-kernel: all build/full.test
-	EBPFW_FULL_TEST=1 EBPFW_OBJECT=$(CURDIR)/build/stateful.o EBPFW_BINARY=$(CURDIR)/build/ebpfw ./build/full.test -test.v -test.timeout=10m
+	$(ISOLATE) env EBPFW_FULL_TEST=1 EBPFW_OBJECT=$(CURDIR)/build/stateful.o EBPFW_BINARY=$(CURDIR)/build/ebpfw ./build/full.test -test.v -test.timeout=10m
 
 benchmark: all build/full.test
-	EBPFW_FULL_TEST=1 EBPFW_UFW_TEST=1 EBPFW_UFW_BENCH=1 EBPFW_OBJECT=$(CURDIR)/build/stateful.o EBPFW_BINARY=$(CURDIR)/build/ebpfw ./build/full.test -test.v -test.run='^TestDirectUFWBenchmark$$' -test.timeout=20m
+	$(ISOLATE) env EBPFW_FULL_TEST=1 EBPFW_UFW_TEST=1 EBPFW_UFW_BENCH=1 EBPFW_OBJECT=$(CURDIR)/build/stateful.o EBPFW_BINARY=$(CURDIR)/build/ebpfw ./build/full.test -test.v -test.run='^TestDirectUFWBenchmark$$' -test.timeout=20m
 
 install: all
 	install -d $(DESTDIR)$(PREFIX)/sbin $(DESTDIR)$(PREFIX)/lib/ebpfw $(DESTDIR)/etc/ebpfw $(DESTDIR)/usr/lib/systemd/system

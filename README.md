@@ -20,7 +20,7 @@ sudo make install
 sudo systemctl daemon-reload
 ```
 
-Or use Go 1.25+, Clang 18+ with its BPF backend, Python 3, and Make. Builds
+Or use Go 1.25+, Clang 18+ with its BPF backend, and Make. Builds
 explicitly target eBPF v3 for 32-bit atomics. Installation copies files and does
 not start filtering. Mount bpffs at `/sys/fs/bpf` if needed and configure it to
 mount at boot before enabling the firewall.
@@ -79,10 +79,11 @@ unsupported. Legacy v0.1 policies migrate disabled for review.
 
 ## Benchmark
 
-![eBPF vs UFW: time per operation at 64 rules](benchmarks/comparison.svg)
+![ebpfw vs UFW: time per operation at 64 rules](benchmarks/comparison.svg)
 
 **Blocking was faster; accepted traffic was approximately equal.** At 64 rules,
-XDP source blocking took about **44% less time** and normal UDP blocking about
+source IP blocking with ebpfw’s XDP acceleration took about **44% less time**
+and UDP port blocking through its standard eBPF hooks about
 **26% less time**. Small accepted-traffic differences overlap observed variation;
 these results do not establish faster streaming or greater network throughput.
 
@@ -90,8 +91,12 @@ Method: real UFW 0.36.2 using `iptables-nft`, compared with ebpfw in separate
 network/mount namespaces over veth. Five repetitions at 1, 16, and 64 rules,
 alternating backend order: 150 trials. Each drop trial verifies 5,000 frames;
 established TCP/UDP trials verify 1,000 64-byte echo round trips; new TCP trials
-verify 50 connect/echo/close operations. Logging is off. XDP uses generic mode
-and UFW uses equivalent absolute source blocks before established-flow rules.
+verify 50 connect/echo/close operations. Logging is off.
+
+Every row compares UFW with ebpfw. Only ebpfw uses generic XDP in the source IP
+blocking test; the other rows use its standard Netfilter eBPF hooks. UFW uses
+`iptables-nft` throughout, with equivalent absolute source blocks before its
+established-flow acceptance rules. UFW does not use XDP.
 
 Recorded on 2026-11-03 from `fef330d` with Clang 21.1.8, before the compiler
 portability repair: Linux 6.12.114, ARM64 QEMU 10.2.4/HVF, two vCPUs, 1.5 GiB RAM,
@@ -102,18 +107,19 @@ are included; older reports and logs remain in Git history.
 ## Test and reproduce
 
 ```sh
-make test                              # unit tests, race detector, vet
-python3 tests/vm_runner.py              # full kernel suite in an isolated VM
-python3 tests/vm_runner.py --benchmark  # also benchmark against real UFW
-python3 benchmarks/plot.py              # redraw the recorded benchmark graph
+make test                                  # unit tests, race detector, vet
+sudo env PATH="$PATH" make test-kernel       # live kernel tests
+sudo env PATH="$PATH" make benchmark         # real UFW comparison
+python3 benchmarks/plot.py                  # redraw the recorded graph
 ```
 
-Run inside `nix develop`. VM tests use digest-pinned guest assets, have no
-external NIC, and install no packages on your host. They cover IPv4/IPv6,
-connection state, routing, fragments, selectors, limits, rejects, XDP, reloads,
-and enforcement surviving agent crashes. GitHub Actions runs build and isolated
-live tests; its manual benchmark input additionally compares UFW. Tests on an
-existing Linux host must use `tests/run-isolated.sh` on a disposable test machine.
+Kernel tests and benchmarks require a disposable Linux machine with BTF and
+BPF privileges. The benchmark also requires UFW. Both Make targets create
+private network/mount namespaces and private bpffs; they never attach to a real
+NIC. The live suite covers IPv4/IPv6, state, routing, fragments, selectors,
+limits, rejects, XDP, reloads, and agent crashes. CI runs these tests and offers
+the benchmark as a manual input. Chart generation uses Matplotlib, included in
+the Nix shell.
 
 ## License
 
