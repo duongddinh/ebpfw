@@ -1,6 +1,10 @@
 # Stateful ebpfw against real UFW — 2026-11-03
 
-This compares the current stateful eBPF program against **UFW 0.36.2**, executed
+These measurements were collected from commit `fef330d` with Clang 21.1.8,
+before the subsequent Clang 18 portability repair. The raw samples and object
+hash below identify that measured build.
+
+This compares the stateful eBPF program against **UFW 0.36.2**, executed
 through the real UFW CLI. UFW used `iptables 1.8.9 (nf_tables)`, so nftables and
 Linux conntrack implement UFW's rules. The ebpfw worker verified that no nftables
 tables were installed; ebpfw uses its own BPF flow maps. The nftables Go library

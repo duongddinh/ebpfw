@@ -133,6 +133,7 @@ def pack(root, cache, arch, modloop, benchmark):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--clang', default=os.environ.get('CLANG', 'clang'), help='BPF compiler executable')
     parser.add_argument('--arch', choices=ASSETS, default='arm64' if platform.machine() in ('arm64', 'aarch64') else 'amd64')
     parser.add_argument('--cache', type=Path, default=REPO / '.cache' / 'vm')
     parser.add_argument('--benchmark', action='store_true', help='also compare against real UFW (150 trials)')
@@ -141,7 +142,7 @@ def main():
     args = parser.parse_args()
     cache, arch = args.cache.resolve(), args.arch
     cache.mkdir(parents=True, exist_ok=True)
-    for tool in ('go', 'clang', 'unsquashfs', 'qemu-system-' + ASSETS[arch][0]):
+    for tool in ('go', args.clang, 'unsquashfs', 'qemu-system-' + ASSETS[arch][0]):
         if not shutil.which(tool):
             raise SystemExit('missing ' + tool + '; run inside nix develop')
     kernel = artifact(cache, arch, 'vmlinuz-virt', ASSETS[arch][1])
@@ -152,7 +153,7 @@ def main():
         (root / '.ebpfw-guest-ready').write_text('verified guest assets\n')
     (REPO / 'build').mkdir(exist_ok=True)
     env = dict(os.environ, GOOS='linux', GOARCH=arch, CGO_ENABLED='0')
-    run(['clang', '-O2', '-g', '-target', 'bpfel', '-Wall', '-Werror', '-c', REPO / 'bpf/stateful.c', '-o', REPO / 'build/stateful.o'])
+    run([args.clang, '-O2', '-g', '-target', 'bpfel', '-mcpu=v3', '-Wall', '-Werror', '-c', REPO / 'bpf/stateful.c', '-o', REPO / 'build/stateful.o'])
     for target, package, test in [('ebpfw-' + arch, './cmd/ebpfw', False), ('full-' + arch + '.test', './internal/firewall', True), ('vm-init-' + arch, './tests/vm', False)]:
         command = ['go', 'test', '-c'] if test else ['go', 'build', '-trimpath']
         run(command + ['-o', REPO / 'build' / target, package], env=env, cwd=REPO)

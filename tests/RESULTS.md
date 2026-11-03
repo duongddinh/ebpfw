@@ -69,3 +69,22 @@ semantics and bounded resource behavior.
 GitHub Actions is configured to repeat build/unit and private-namespace live
 checks; a manual input additionally runs the direct UFW benchmark. Its remote
 result must be assessed separately from the local evidence above.
+
+## Clang 18 CI regression repair
+
+Ubuntu CI used Clang 18.1.3. Its default eBPF target could not lower the
+32-bit compare-and-swap in the per-CPU scratch guard. The failure was reproduced
+locally with Clang 18.1.8. Both Make and the VM runner now explicitly select
+`-mcpu=v3`, and CI explicitly selects `clang-18`.
+
+Full VM validation also exposed Clang 18 lowering a dynamically indexed local
+flow array to a bitwise OR on a stack pointer, which the verifier rejected.
+The initializer now writes constant array offsets with selected scalar values.
+It retains the existing flow-map ABI and policy semantics.
+
+After both repairs, the full suite passed with Clang 18.1.8 on
+[ARM64](evidence/clang18-vm-arm64.log) and
+[x86-64](evidence/clang18-vm-amd64.log), and with Clang 21.1.8 on
+[ARM64](evidence/clang21-vm-arm64.log). Both endian targets also compile with
+Clang 18. Unit/race/vet and archive safety checks passed. These are local
+regression results; a subsequent remote GitHub Actions outcome is separate.

@@ -3,6 +3,8 @@ GO ?= go
 PREFIX ?= /usr/local
 DESTDIR ?=
 BPF_ENDIAN ?= bpfel
+# The stateful datapath uses 32-bit atomics; older Clang defaults target v1.
+BPF_CPU ?= v3
 
 .PHONY: all test test-kernel benchmark install clean
 all: build/ebpfw build/stateful.o
@@ -11,9 +13,9 @@ build/ebpfw: $(shell find cmd/ebpfw internal/config internal/firewall -name '*.g
 	mkdir -p build
 	CGO_ENABLED=0 $(GO) build -trimpath -o $@ ./cmd/ebpfw
 
-build/stateful.o: bpf/stateful.c
+build/stateful.o: bpf/stateful.c Makefile
 	mkdir -p build
-	$(CLANG) -O2 -g -target $(BPF_ENDIAN) -Wall -Werror -c $< -o $@
+	$(CLANG) -O2 -g -target $(BPF_ENDIAN) -mcpu=$(BPF_CPU) -Wall -Werror -c $< -o $@
 
 build/full.test: $(shell find internal -name '*.go') go.mod go.sum
 	mkdir -p build

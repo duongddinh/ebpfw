@@ -50,7 +50,9 @@ sudo systemctl daemon-reload
 ```
 
 The Nix flake pins development tools. Alternatively use Go 1.25+, Clang with the
-BPF backend, Python 3, and Make. Little-endian x86-64/ARM64 are tested targets.
+BPF backend (Clang 18+), Python 3, and Make. The stateful build explicitly
+targets eBPF ISA v3 (`-mcpu=v3`), required for its 32-bit atomics. Little-endian
+x86-64/ARM64 are tested targets.
 macOS supports policy editing and VM tests; enforcement requires Linux.
 `make install` copies files and does not enable filtering.
 

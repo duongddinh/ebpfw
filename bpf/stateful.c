@@ -256,11 +256,17 @@ static __attribute__((noinline)) int remember(struct packet *p,struct flow_key *
  if(p->proto==1&&p->icmp_type!=8)return 0;if(p->proto==58&&p->icmp_type!=128)return 0;
  struct flow f={.last=now,.original=direction,.generation=generation};
  if(p->proto==6){
+  u32 end,acked,other;u8 scale=0;
   if((p->flags&4)||(p->flags&1))return 0;
-  if((p->flags&2)&&!(p->flags&16)){f.state=1;f.end[direction]=p->seq+p->payload+1;f.acked[direction]=p->seq+1;f.scale[direction]=p->wscale;}
-  else if((p->flags&16)&&!(p->flags&2)){f.state=3;f.end[direction]=p->seq+p->payload;f.end[!direction]=p->ack;f.acked[direction]=p->seq;f.acked[!direction]=p->ack;}
+  if((p->flags&2)&&!(p->flags&16)){f.state=1;end=p->seq+p->payload+1;acked=p->seq+1;other=0;scale=p->wscale;}
+  else if((p->flags&16)&&!(p->flags&2)){f.state=3;end=p->seq+p->payload;acked=p->seq;other=p->ack;}
   else return -1;
-  f.window[direction]=p->window;f.window[!direction]=65535;
+  /* Fixed offsets keep older LLVM from lowering a stack-array index to a
+   * bitwise OR on the frame pointer, which the BPF verifier prohibits. */
+  f.end[0]=direction?other:end;f.end[1]=direction?end:other;
+  f.acked[0]=direction?other:acked;f.acked[1]=direction?acked:other;
+  f.scale[0]=direction?0:scale;f.scale[1]=direction?scale:0;
+  f.window[0]=direction?65535:p->window;f.window[1]=direction?p->window:65535;
  }else f.state=1;
  return map_update(&flows,key,&f,0);
 }

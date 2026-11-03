@@ -14,6 +14,8 @@ jobs:
   test:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
+    env:
+      CLANG: clang-18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -21,12 +23,17 @@ jobs:
           go-version-file: go.mod
           cache: true
       - name: Install disposable runner dependencies
-        run: sudo apt-get update && sudo apt-get install -y clang llvm ufw
+        run: sudo apt-get update && sudo apt-get install -y clang-18 llvm-18 ufw
+      - name: Record toolchain
+        run: |
+          uname -srmo
+          "$CLANG" --version
+          go version
       - name: Build, race tests, vet, archive safety tests
         run: make all test build/full.test
       - name: Verify service syntax
         run: |
-          sudo make install
+          sudo make install CLANG="$CLANG"
           systemd-analyze verify /usr/lib/systemd/system/ebpfw.service 2>&1 | tee service-check.log
       - name: Kernel verifier and live IPv4/IPv6 tests
         run: |
