@@ -1,0 +1,20 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Install LLVM
+        run: sudo apt-get update && sudo apt-get install -y clang llvm
+      - run: make all test build/kernel.test
+      - name: Kernel verifier and packet tests
+        run: sudo env PATH="$PATH" make test-kernel

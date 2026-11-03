@@ -1,0 +1,29 @@
+[Unit]
+Description=ebpfw XDP ingress firewall on %I
+Documentation=https://github.com/duongddinh/ebpfw
+After=network.target
+ConditionPathExists=/etc/ebpfw/rules.json
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Service]
+Type=simple
+Environment=EBPFW_MODE=native
+EnvironmentFile=-/etc/ebpfw/ebpfw.env
+ExecStart=/usr/local/sbin/ebpfw run --interface %I --mode ${EBPFW_MODE} --object /usr/local/lib/ebpfw/firewall.o
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=10
+UMask=0077
+LimitMEMLOCK=infinity
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/run/ebpfw
+RuntimeDirectory=ebpfw
+RuntimeDirectoryPreserve=yes
+CapabilityBoundingSet=CAP_BPF CAP_NET_ADMIN CAP_SYS_RESOURCE
+
+[Install]
+WantedBy=multi-user.target
