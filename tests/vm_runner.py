@@ -154,7 +154,7 @@ def main():
     (REPO / 'build').mkdir(exist_ok=True)
     env = dict(os.environ, GOOS='linux', GOARCH=arch, CGO_ENABLED='0')
     run([args.clang, '-O2', '-g', '-target', 'bpfel', '-mcpu=v3', '-Wall', '-Werror', '-c', REPO / 'bpf/stateful.c', '-o', REPO / 'build/stateful.o'])
-    for target, package, test in [('ebpfw-' + arch, './cmd/ebpfw', False), ('full-' + arch + '.test', './internal/firewall', True), ('vm-init-' + arch, './tests/vm', False)]:
+    for target, package, test in [('ebpfw-' + arch, '.', False), ('full-' + arch + '.test', './internal/firewall', True), ('vm-init-' + arch, './tests', False)]:
         command = ['go', 'test', '-c'] if test else ['go', 'build', '-trimpath']
         run(command + ['-o', REPO / 'build' / target, package], env=env, cwd=REPO)
     initrd = pack(root, cache, arch, modloop, args.benchmark)
