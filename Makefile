@@ -5,10 +5,11 @@ DESTDIR ?=
 BPF_ENDIAN ?= bpfel
 # The stateful datapath uses 32-bit atomics; older Clang defaults target v1.
 BPF_CPU ?= v3
+ARCH ?= $(shell $(GO) env GOARCH)
 # Private network/mount namespaces protect the test host and its pinned BPF state.
 ISOLATE = unshare --net --mount sh -ec 'mount --make-rprivate /; mount -t bpf bpf /sys/fs/bpf; mount -t tmpfs -o mode=0755 tmpfs /run; exec "$$@"' sh
 
-.PHONY: all test test-kernel benchmark install clean
+.PHONY: all test test-kernel benchmark install deb clean
 all: build/ebpfw build/stateful.o
 
 build/ebpfw: main.go $(shell find internal/config internal/firewall -name '*.go') go.mod go.sum
@@ -40,6 +41,11 @@ install: all
 	install -m 0644 build/stateful.o $(DESTDIR)$(PREFIX)/lib/ebpfw/stateful.o
 	sed 's|/usr/local|$(PREFIX)|g' ebpfw.service > $(DESTDIR)/usr/lib/systemd/system/ebpfw.service
 	@echo 'Installed files only. Mount bpffs, configure rules, then enable explicitly.'
+
+# Build a Linux binary and matching BPF object without installing or enabling.
+deb:
+	@test -n "$(VERSION)" || { echo 'Set VERSION, e.g. make deb VERSION=0.2.0 ARCH=amd64'; exit 1; }
+	python3 packaging/build.py --version "$(VERSION)" --arch "$(ARCH)"
 
 clean:
 	rm -rf build

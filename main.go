@@ -49,6 +49,9 @@ All firewall decisions run in eBPF. Accepted local traffic uses Linux TCP/IP.
 Pinned kernel links keep enforcing when the management/event process exits.
 `
 
+// Debian packages override this at build time; source installs use /usr/local.
+var defaultObject = "/usr/local/lib/ebpfw/stateful.o"
+
 func main() {
 	if e := run(os.Args[1:], os.Stdout); e != nil {
 		fmt.Fprintln(os.Stderr, "ebpfw:", e)
@@ -69,7 +72,7 @@ func run(args []string, out io.Writer) error {
 	f.SetOutput(out)
 	path := f.String("config", "/etc/ebpfw/rules.json", "configuration path")
 	root := f.String("pin-root", "", "bpffs pin root (default: per network namespace)")
-	object := f.String("object", "/usr/local/lib/ebpfw/stateful.o", "compiled eBPF object")
+	object := f.String("object", defaultObject, "compiled eBPF object")
 	dry := f.Bool("dry-run", false, "print planned configuration without changing disk or kernel")
 	if e := f.Parse(args); e != nil {
 		if errors.Is(e, flag.ErrHelp) {
