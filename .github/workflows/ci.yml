@@ -11,6 +11,36 @@ on:
 permissions:
   contents: read
 jobs:
+  packages:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: amd64
+          - runner: ubuntu-24.04-arm
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    env:
+      CLANG: clang-18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Install package build dependencies
+        run: sudo apt-get update && sudo apt-get install -y clang-18 python3
+      - name: Build two package versions for this architecture
+        run: |
+          make deb VERSION=0.0.0~ci1 ARCH=${{ matrix.arch }}
+          make deb VERSION=0.0.0~ci2 ARCH=${{ matrix.arch }}
+      - name: Verify installation, safe upgrades, configuration retention, and removal
+        run: |
+          sudo env PATH="$PATH" EBPFW_PACKAGE_TEST=1 sh packaging/test.sh \
+            "$PWD/build/packages/ebpfw_0.0.0~ci1_${{ matrix.arch }}.deb" \
+            "$PWD/build/packages/ebpfw_0.0.0~ci2_${{ matrix.arch }}.deb"
   test:
     runs-on: ubuntu-24.04
     timeout-minutes: 25

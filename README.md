@@ -5,13 +5,57 @@ routed IPv4/IPv6 traffic. It tracks connections in BPF maps and installs no
 nftables rules. Optional XDP acceleration drops explicit source blocks early;
 accepted local traffic still uses Linux TCP/IP.
 
-**Experimental software.** Requires Linux 6.6+, kernel BTF, bpffs, Netfilter BPF
+**Experimental software; no independent security audit.** Incorrect rules can
+disconnect SSH or disrupt cameras, applications, and routing. Keep console
+access and test in a disposable VM before enabling. Benchmark results come from
+a VM and do not establish faster accepted traffic or production throughput.
+Provided without warranty under the bundled licenses.
+
+Requires Linux 6.6+, kernel BTF, bpffs, Netfilter BPF
 links, and IP defragmentation support. Check with `sudo ebpfw doctor`. A kernel
 without `/sys/kernel/btf/vmlinux` needs a BTF-enabled kernel; installing headers
 or downloading an external BTF file is insufficient for this implementation.
 Test in a VM before using it on a production host.
 
-## Build
+## Debian / Ubuntu packages
+
+The signed APT channel is `https://packages.cytizennetworks.com`. These commands
+require its first signed release to have been published; until then use the
+source build below. Supported package architectures are amd64 and arm64.
+
+```sh
+curl -fsSLO https://packages.cytizennetworks.com/install.sh
+less install.sh
+sudo sh install.sh
+```
+
+The script checks basic kernel/BTF prerequisites, installs a repository-specific
+key and APT source, and runs `apt-get install ebpfw`. It does not change your kernel
+or enable the firewall. The repository page also provides manual APT setup.
+After that setup, install with `sudo apt update && sudo apt install ebpfw`.
+Use `sudo ebpfw doctor`, allow administration traffic, and review the policy
+before enabling. A successful package install does not prove kernel compatibility.
+
+Packages preserve `/etc/ebpfw/rules.json` across upgrades. Disable ebpfw in every
+using network namespace before upgrading or removing: maintainer scripts refuse
+to replace the eBPF object or remove files while pinned state or an enabled policy
+remains. Review and explicitly re-enable after an upgrade. No automatic service
+start or restart occurs during package installation.
+
+```sh
+sudo ebpfw disable
+sudo apt update
+sudo apt install --only-upgrade ebpfw
+sudo ebpfw check
+sudo ebpfw enable
+```
+
+Build packages locally with `make deb VERSION=0.2.0 ARCH=amd64` or `ARCH=arm64`
+inside `nix develop`; Python 3 is also required outside Nix. Output is under
+`build/packages/`. The package includes the compiled BPF object, so clients do
+not need Go or Clang. Packaging is not distribution approval or a security audit.
+
+## Build from source
 
 ```sh
 nix develop
@@ -24,6 +68,8 @@ Or use Go 1.25+, Clang 18+ with its BPF backend, and Make. Builds
 explicitly target eBPF v3 for 32-bit atomics. Installation copies files and does
 not start filtering. Mount bpffs at `/sys/fs/bpf` if needed and configure it to
 mount at boot before enabling the firewall.
+Use one installation method per machine; avoid mixing `/usr/local` source
+installs with APT-managed `/usr` packages.
 
 ## Use
 
