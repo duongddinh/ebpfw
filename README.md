@@ -44,7 +44,7 @@ or enable the firewall. Package clients do not need Go or Clang.
 Use `sudo ebpfw doctor`, allow administration traffic, and review the policy
 before enabling. A successful package install does not prove kernel compatibility.
 
-The public `0.2.0~rc1` ARM64 package was installed through both methods below on
+The public `0.2.0~rc1` ARM64 package was installed using the setup script and manual APT instructions on
 Ubuntu 24.04.5, Linux 6.8.0-147-generic, in a disposable QEMU VM. Kernel tests,
 systemd activation, active-package guards, reinstall, removal, and purge passed.
 This does not establish compatibility with other kernels or architectures.
