@@ -5,11 +5,17 @@ routed IPv4/IPv6 traffic. It tracks connections in BPF maps and installs no
 nftables rules. Optional XDP acceleration drops explicit source blocks early;
 accepted local traffic still uses Linux TCP/IP.
 
-**Experimental software; no independent security audit.** Incorrect rules can
-disconnect SSH or disrupt cameras, applications, and routing. Keep console
-access and test in a disposable VM before enabling. Benchmark results come from
-a VM and do not establish faster accepted traffic or production throughput.
-Provided without warranty under the bundled licenses.
+> [!WARNING]
+> **EXPERIMENTAL FIREWALL — NOT INDEPENDENTLY SECURITY AUDITED.**
+> Bugs or incorrect rules can allow unwanted traffic, disconnect SSH, or disrupt
+> cameras, applications, and routing. This includes a new connection-tracking
+> implementation. Test in a disposable VM and keep console/recovery access before
+> enabling it. Do not rely on ebpfw as your only protection for a production host.
+>
+> **Installing a package is not a security certification.** Filtering stays disabled
+> until you explicitly enable it. VM benchmark results do not establish faster
+> accepted traffic, physical-NIC throughput, or a general speed advantage over UFW.
+> The software is provided without warranty under the bundled licenses.
 
 Requires Linux 6.6+, kernel BTF, bpffs, Netfilter BPF
 links, and IP defragmentation support. Check with `sudo ebpfw doctor`. A kernel
@@ -19,22 +25,73 @@ Test in a VM before using it on a production host.
 
 ## Debian / Ubuntu packages
 
-The signed APT channel is `https://packages.cytizennetworks.com`. These commands
-require its first signed release to have been published; until then use the
-source build below. Supported package architectures are amd64 and arm64.
+Signed packages are available for **amd64 and arm64** at
+**https://packages.cytizennetworks.com**. The `stable` channel name describes the
+APT repository, not production readiness. The Linux/kernel requirements above
+still apply; installation does not upgrade your kernel.
+
+Download and review the setup script, then run it:
 
 ```sh
-curl -fsSLO https://packages.cytizennetworks.com/install.sh
+curl --proto '=https' --tlsv1.2 -fsSLO https://packages.cytizennetworks.com/install.sh
 less install.sh
 sudo sh install.sh
 ```
 
 The script checks basic kernel/BTF prerequisites, installs a repository-specific
 key and APT source, and runs `apt-get install ebpfw`. It does not change your kernel
-or enable the firewall. The repository page also provides manual APT setup.
-After that setup, install with `sudo apt update && sudo apt install ebpfw`.
+or enable the firewall. Package clients do not need Go or Clang.
 Use `sudo ebpfw doctor`, allow administration traffic, and review the policy
 before enabling. A successful package install does not prove kernel compatibility.
+
+The public `0.2.0~rc1` ARM64 package was installed through both methods below on
+Ubuntu 24.04.5, Linux 6.8.0-147-generic, in a disposable QEMU VM. Kernel tests,
+systemd activation, active-package guards, reinstall, removal, and purge passed.
+This does not establish compatibility with other kernels or architectures.
+
+### Manual APT setup
+
+Install the download/key tools and inspect the repository's public key:
+
+```sh
+sudo apt update
+sudo apt install ca-certificates curl gnupg
+key_file="$(mktemp)"
+curl --proto '=https' --tlsv1.2 -fsSL \
+  https://packages.cytizennetworks.com/repository.asc -o "$key_file"
+gpg --show-keys --fingerprint "$key_file"
+```
+
+Verify that the primary key fingerprint is exactly:
+
+```text
+4779 D597 2453 95AE 746D 7E3A 7B89 769C ECF2 9882
+```
+
+Then add the repository with a key scoped to this APT source:
+
+```sh
+sudo install -d -m 0755 /etc/apt/keyrings
+sudo install -m 0644 "$key_file" /etc/apt/keyrings/cytizen-ebpfw.asc
+rm -f "$key_file"
+sudo tee /etc/apt/sources.list.d/cytizen-ebpfw.sources >/dev/null <<EOF
+Types: deb
+URIs: https://packages.cytizennetworks.com/debian
+Suites: stable
+Components: main
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/cytizen-ebpfw.asc
+EOF
+sudo apt update
+sudo apt install ebpfw
+sudo ebpfw doctor
+sudo ebpfw check
+```
+
+Review rules and administration access before following the explicit enable
+example below. Installation leaves the policy disabled and the service inactive.
+
+### Upgrade and remove
 
 Packages preserve `/etc/ebpfw/rules.json` across upgrades. Disable ebpfw in every
 using network namespace before upgrading or removing: maintainer scripts refuse
@@ -50,6 +107,10 @@ sudo ebpfw check
 sudo ebpfw enable
 ```
 
+To remove the package, disable it in every using network namespace first, then
+run `sudo apt remove ebpfw`. Configuration remains for a later reinstall;
+`sudo apt purge ebpfw` also removes the saved configuration.
+
 Build packages locally with `make deb VERSION=0.2.0 ARCH=amd64` or `ARCH=arm64`
 inside `nix develop`; Python 3 is also required outside Nix. Output is under
 `build/packages/`. The package includes the compiled BPF object, so clients do
@@ -58,6 +119,8 @@ not need Go or Clang. Packaging is not distribution approval or a security audit
 ## Build from source
 
 ```sh
+git clone https://github.com/duongddinh/ebpfw.git
+cd ebpfw
 nix develop
 make all test
 sudo make install
